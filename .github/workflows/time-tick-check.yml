@@ -1,0 +1,20 @@
+# .github/workflows/time-tick-check.yml
+name: Time Tick Check
+
+on:
+  pull_request:
+
+jobs:
+  check-tick:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if current time tick is even or odd
+        run: |
+          TICK=$(date +%s)
+          echo "Current timestamp: $TICK"
+          if [ $((TICK % 2)) -eq 0 ]; then
+            echo "Even tick — PASS"
+          else
+            echo "Odd tick — FAIL"
+            exit 1
+          fi
